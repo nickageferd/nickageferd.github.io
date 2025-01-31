@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sacramento', cursive;
+            background: #ffaad4; /* Soft pink background */
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin: 20px 0;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            opacity: 0; /* Initially hidden */
+            transform: translateY(-20px); /* Start above the normal position */
+            transition: opacity 1s ease-out, transform 1s ease-out; /* Smooth fade-in and slide */
+        }
+
+        .sparkles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 10;
+            animation: sparkle 1.5s infinite ease-in-out;
+            animation-play-state: paused; /* Paused initially */
+            visibility: hidden; /* Initially hidden */
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Button Styles */
+        .cta-button {
+            font-size: 1.5em;
+            padding: 15px 40px;
+            background-color: #ff4f81;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: none; /* Hidden initially */
+        }
+
+        .cta-button:hover {
+            background-color: #ff2760;
+            transform: scale(1.05);
+        }
+
+        /* Moving No Button Styles */
+        .no-button {
+            font-size: 1.5em;
+            padding: 15px 40px;
+            background-color: #c2c2c2;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+            position: absolute;
+            transition: all 0.5s ease-in-out;
+            display: none; /* Hidden initially */
+        }
+
+        .no-button:hover {
+            background-color: #a5a5a5;
+        }
+
+        /* Animation for butterflies */
+        .butterfly {
+            position: absolute;
+            animation: fly 10s infinite ease-in-out;
+            top: 50%;
+            left: 50%;
+            transform-origin: center;
+            z-index: 5;
+            animation-play-state: paused; /* Paused initially */
+            visibility: hidden; /* Initially hidden */
+        }
+
+        .butterfly img {
+            width: 60px;
+            height: 60px;
+        }
+
+        @keyframes fly {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(200px, -100px) rotate(45deg);
+            }
+            50% {
+                transform: translate(0, -200px) rotate(90deg);
+            }
+            75% {
+                transform: translate(-200px, -100px) rotate(135deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(180deg);
+            }
+        }
+
+        /* Flower background animation */
+        .flower {
+            position: absolute;
+            bottom: 0;
+            z-index: 2;
+            animation: bloom 4s infinite ease-in-out;
+            animation-play-state: paused; /* Paused initially */
+            visibility: hidden; /* Initially hidden */
+        }
+
+        @keyframes bloom {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .flower img {
+            width: 80px;
+            height: 80px;
+        }
+
+        /* Envelope Icon */
+        .envelope-container {
+            position: relative;
+            width: 100px;
+            cursor: pointer;
+        }
+
+        .envelope {
+            width: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .click-me {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1em;
+            color: rgb(229, 28, 115);
+            font-weight: normal;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .cta-button, .no-button {
+                font-size: 1.2em;
+                padding: 10px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles"></div>
+    <div class="butterfly" style="animation-duration: 12s;">
+        <img src="butterfly.gif" alt="Butterfly">
+    </div>
+    <div class="butterfly" style="animation-duration: 8s;">
+        <img src="butterfly.gif" alt="Butterfly">
+    </div>
+    <div class="flower" style="left: 10%; animation-duration: 5s;">
+        <img src="flowers.png" alt="Flower">
+    </div>
+    <div class="flower" style="left: 45%; animation-duration: 6s;">
+        <img src="gift.png" alt="Flower">
+    </div>
+    <div class="flower" style="left: 80%; animation-duration: 7s;">
+        <img src="bouquet.png" alt="Flower">
+    </div>
+
+    <h1>Will You Be My Valentine?</h1>
+
+    <!-- Envelope Container with Click Me text -->
+    <div class="envelope-container" onclick="startAnimation()">
+        <img src="envlope.png" alt="Envelope" class="envelope">
+        <span class="click-me">Click Me</span> <!-- Click Me Text -->
+    </div>
+
+    <!-- The rest of the buttons will be hidden until after clicking the envelope -->
+    <button class="cta-button" onclick="accept()">Yes, I will!</button>
+    <button class="no-button" onclick="moveNo()">No, Thanks!</button>
+
+    <script>
+        // Function to start the page interaction after the envelope is clicked
+        function startAnimation() {
+            // Hide the envelope and the text
+            document.querySelector('.envelope-container').style.display = 'none';
+
+            // Fade in and slide the heading
+            document.querySelector('h1').style.opacity = '1';
+            document.querySelector('h1').style.transform = 'translateY(0)';
+            
+            // Start the animations by changing the play-state to running and visibility to visible
+            document.querySelector('.sparkles').style.animationPlayState = 'running';
+            document.querySelector('.sparkles').style.visibility = 'visible';
+
+            document.querySelectorAll('.butterfly').forEach(butterfly => {
+                butterfly.style.animationPlayState = 'running';
+                butterfly.style.visibility = 'visible';
+            });
+
+            document.querySelectorAll('.flower').forEach(flower => {
+                flower.style.animationPlayState = 'running';
+                flower.style.visibility = 'visible';
+            });
+
+            // Delay to show buttons after the heading has finished transitioning
+            setTimeout(() => {
+                document.querySelector('.cta-button').style.display = 'inline-block';  // Show the Yes button
+                document.querySelector('.no-button').style.display = 'inline-block';  // Show the No button
+            }, 1000);  // Delay by 1 second for smooth transition
+        }
+
+        function accept() {
+            document.querySelector('h1').textContent = 'Yay!!! 💖';
+            document.querySelector('.cta-button').style.display = 'none';
+            document.querySelector('.no-button').style.display = 'none';
+        }
+
+        function moveNo() {
+            const noButton = document.querySelector('.no-button');
+            // Animate the "No" button by moving it away
+            noButton.style.transform = 'translateX(300px) rotate(45deg)';
+            noButton.style.opacity = '0'; // Fade it out
+
+            // After the animation completes, reset its position (optional)
+            setTimeout(() => {
+                noButton.style.transform = 'none';
+                noButton.style.opacity = '1';
+            }, 1000); // Reset after 1 second
+        }
+    </script>
+</body>
+</html>
